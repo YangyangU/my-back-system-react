@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout, theme } from 'antd';
 
-const { Header } = Layout;
-
-const View = () => {
-    const [collapsed, setCollapsed] = useState(false);
+const View = forwardRef(() => {
+    const [collapsed, setCollapsed] = useState<boolean>(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
     return (
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Layout.Header style={{ padding: 0, background: colorBgContainer }}>
             <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -21,8 +20,8 @@ const View = () => {
                     height: 64,
                 }}
             />
-        </Header>
+        </Layout.Header>
     );
-};
+});
 
 export default View;

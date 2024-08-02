@@ -1,41 +1,52 @@
-import {
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-const { Sider } = Layout;
-const index = () => {
+import React from 'react';
+import MenuConfig from '@/api/menu';
+import * as Icon from '@ant-design/icons';
+
+const icon2Element: (icon: string) => React.ReactNode = (icon: string) => {
+    const Component = Icon[icon as keyof typeof Icon] as React.ElementType;
+    return React.createElement(Component);
+};
+
+type MenuItemType = {
+    key: string;
+    label: string;
+    icon?: React.ReactNode;
+    children?: MenuItemType[];
+};
+
+const items: MenuItemType[] = MenuConfig.map((item) => {
+    const child: MenuItemType = {
+        key: item.path,
+        icon: icon2Element(item.icon),
+        label: item.label,
+    };
+    if (item.children) {
+        child.children = item.children.map((childItem) => {
+            return {
+                key: childItem.path,
+                label: childItem.label,
+            };
+        });
+    }
+    return child;
+});
+
+const View = () => {
     return (
-        <Sider trigger={null} collapsible>
+        <Layout.Sider trigger={null} collapsible>
             <h3 className="app-name">后台管理系统</h3>
             <Menu
                 theme="dark"
                 mode="inline"
                 defaultSelectedKeys={['1']}
-                items={[
-                    {
-                        key: '1',
-                        icon: <UserOutlined />,
-                        label: 'nav 1',
-                    },
-                    {
-                        key: '2',
-                        icon: <VideoCameraOutlined />,
-                        label: 'nav 2',
-                    },
-                    {
-                        key: '3',
-                        icon: <UploadOutlined />,
-                        label: 'nav 3',
-                    },
-                ]}
+                items={items}
                 style={{
                     height: '100%',
                 }}
             />
-        </Sider>
+        </Layout.Sider>
     );
 };
 
-export default index;
+export default View;
