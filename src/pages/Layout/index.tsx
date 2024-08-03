@@ -1,10 +1,10 @@
 import React from 'react';
 import { Layout, theme } from 'antd';
-import Aside from '@/components/Aside';
+import { Outlet } from 'react-router-dom';
+import Aside from '@/components/aside';
 import Header from '@/components/Header';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/store';
-const { Content } = Layout;
 
 const View: React.FC = () => {
     const collapsed = useSelector((state: RootState) => state.tab.isCollapse);
@@ -17,7 +17,7 @@ const View: React.FC = () => {
             <Aside collapsed={collapsed}></Aside>
             <Layout>
                 <Header collapsed={collapsed}></Header>
-                <Content
+                <Layout.Content
                     style={{
                         margin: '24px 16px',
                         padding: 24,
@@ -26,8 +26,8 @@ const View: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    Content
-                </Content>
+                    <Outlet />
+                </Layout.Content>
             </Layout>
         </Layout>
     );

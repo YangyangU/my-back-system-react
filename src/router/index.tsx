@@ -1,10 +1,10 @@
-import { RouteObject, createHashRouter } from 'react-router-dom';
-import Layout from '../pages/Layout';
-import Home from '../pages/Home';
-import Mall from '../pages/Mall';
-import User from '../pages/User';
+import { RouteObject, createBrowserRouter } from 'react-router-dom';
+import Layout from '@/pages/Layout';
+import Home from '@/pages/home';
+import Mall from '@/pages/Mall';
+import User from '@/pages/User';
 
-const routes: RouteObject[] = [
+const routes = [
     {
         path: '/',
         element: <Layout />,
@@ -21,8 +21,23 @@ const routes: RouteObject[] = [
                 path: 'user',
                 element: <User />,
             },
+            {
+                path: 'other',
+                children: [
+                    {
+                        path: 'other1',
+                        element: <div>other1</div>,
+                    },
+                    {
+                        path: 'other2',
+                        element: <div>other2</div>,
+                    },
+                ],
+            },
         ],
     },
 ];
 
-export const router = createHashRouter(routes);
+const router = createBrowserRouter(routes as RouteObject[]);
+
+export default router;
