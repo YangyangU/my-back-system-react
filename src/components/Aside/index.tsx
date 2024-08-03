@@ -32,10 +32,10 @@ const items: MenuItemType[] = MenuConfig.map((item) => {
     return child;
 });
 
-const View = () => {
+const View: React.FC<{ collapsed: boolean }> = ({ collapsed }) => {
     return (
-        <Layout.Sider trigger={null} collapsible>
-            <h3 className="app-name">后台管理系统</h3>
+        <Layout.Sider trigger={null} collapsible collapsed={collapsed}>
+            <h3 className="app-name">{collapsed ? '后台' : '后台管理系统'}</h3>
             <Menu
                 theme="dark"
                 mode="inline"

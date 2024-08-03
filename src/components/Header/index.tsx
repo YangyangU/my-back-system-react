@@ -1,10 +1,14 @@
-import { MenuUnfoldOutlined } from '@ant-design/icons';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Button, Layout, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import './index.css';
 import avatar from '@/assets/images/avatar.jpg';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '@/store';
+import { collapseMenu } from '@/store/reducers/tabs';
 
-const View = () => {
+const View: React.FC<{ collapsed: boolean }> = ({ collapsed }) => {
+    const dispatch: AppDispatch = useDispatch();
     const logOut = () => {
         console.log('退出登录');
     };
@@ -42,8 +46,8 @@ const View = () => {
         <Layout.Header className="header-container">
             <Button
                 type="text"
-                icon={<MenuUnfoldOutlined />}
-                // onClick={() => setCollapsed(!collapsed)}
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => dispatch(collapseMenu())}
                 style={{
                     fontSize: '16px',
                     width: 64,
