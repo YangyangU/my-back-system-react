@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, theme } from 'antd';
 import { Outlet } from 'react-router-dom';
-import Aside from '@/components/aside';
+import Aside from '@/components/Aside';
 import Header from '@/components/Header';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/store';

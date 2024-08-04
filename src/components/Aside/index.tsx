@@ -1,12 +1,7 @@
 import { Layout, Menu } from 'antd';
 import React from 'react';
 import MenuConfig from '@/api/menu';
-import * as Icon from '@ant-design/icons';
-
-const icon2Element: (icon: string) => React.ReactNode = (icon: string) => {
-    const Component = Icon[icon as keyof typeof Icon] as React.ElementType;
-    return React.createElement(Component);
-};
+import { icon2Element } from '@/utils/icon';
 
 type MenuItemType = {
     key: string;
