@@ -2,6 +2,7 @@ import { Layout, Menu } from 'antd';
 import React from 'react';
 import MenuConfig from '@/api/menu';
 import { icon2Element } from '@/utils/icon';
+import { To, useNavigate } from 'react-router-dom';
 
 type MenuItemType = {
     key: string;
@@ -28,6 +29,11 @@ const items: MenuItemType[] = MenuConfig.map((item) => {
 });
 
 const View: React.FC<{ collapsed: boolean }> = ({ collapsed }) => {
+    const navigate = useNavigate();
+    const selectMenu = (e: { key: To }) => {
+        navigate(e.key);
+    };
+
     return (
         <Layout.Sider trigger={null} collapsible collapsed={collapsed}>
             <h3 className="app-name">{collapsed ? '后台' : '后台管理系统'}</h3>
@@ -39,6 +45,7 @@ const View: React.FC<{ collapsed: boolean }> = ({ collapsed }) => {
                 style={{
                     height: '100%',
                 }}
+                onClick={selectMenu}
             />
         </Layout.Sider>
     );
