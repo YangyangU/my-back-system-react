@@ -38,17 +38,23 @@ const Home: React.FC = () => {
                         xData,
                         series,
                     },
-                    tableData: {
-                        xData: userData?.map((item) => item.date),
+                    userData: {
+                        xData: (userData as userType[]).map(
+                            (item) => item.date,
+                        ) as string[],
                         series: [
                             {
                                 name: '新增用户',
-                                data: userData?.map((item) => item.new),
+                                data: (userData as userType[]).map(
+                                    (item) => item.new,
+                                ) as number[],
                                 type: 'bar',
                             },
                             {
                                 name: '活跃用户',
-                                data: userData?.map((item) => item.active),
+                                data: (userData as userType[]).map(
+                                    (item) => item.active,
+                                ) as number[],
                                 type: 'bar',
                             },
                         ],

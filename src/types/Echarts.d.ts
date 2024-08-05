@@ -14,9 +14,11 @@ interface orderType {
 }
 
 interface userType {
-    date: string;
-    new: number;
-    active: number;
+    xData?: string[];
+    date?: string;
+    new?: number;
+    active?: number;
+    series?: seriesType[];
 }
 type videoType = {
     name?: string;
@@ -26,9 +28,9 @@ type videoType = {
 
 interface dataType {
     data: {
-        tableData: tableType;
+        tableData?: tableType;
         orderData: orderType;
-        userData?: userType[];
+        userData: userType;
         videoData: videoType;
     };
 }
