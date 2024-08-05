@@ -1,5 +1,5 @@
 import { RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
-import Layout from '@/pages/Layout';
+import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
 import Mall from '@/pages/Mall';
 import User from '@/pages/User';

@@ -18,7 +18,6 @@ const Home: React.FC = () => {
                 data;
             setTableData(tableData as tableType[]);
             setCountData(countData as countType[]);
-            console.log(countData);
 
             //获取折线图数据
             const order = orderData;

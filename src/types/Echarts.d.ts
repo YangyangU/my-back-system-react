@@ -25,6 +25,14 @@ interface userType {
     new?: number;
     active?: number;
     series?: seriesType[];
+    id?: number;
+    name?: string;
+    age?: number;
+    address?: string;
+    phone?: string;
+    email?: string;
+    createTime?: string;
+    updateTime?: string;
 }
 type videoType = {
     name?: string;
