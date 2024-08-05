@@ -1,23 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Table } from 'antd';
 import './index.css';
 import userImg from '@/assets/images/avatar.jpg';
 import { getData } from '@/api';
-import { columns, countData } from './data';
+import { columns } from './data';
 import { icon2Element } from '@/utils/icon';
 import Echarts from '@/components/Echarts';
 
 const Home: React.FC = () => {
-    const [tableData, setTableData] = React.useState<tableType[]>([]);
-    const [echartsData, setEchartsData] = React.useState<dataType>(
-        {} as dataType,
-    );
+    const [tableData, setTableData] = useState<tableType[]>([]);
+    const [countData, setCountData] = useState<countType[]>([]);
+    const [echartsData, setEchartsData] = useState<dataType>({} as dataType);
 
     useEffect(() => {
         getData().then(({ data }) => {
-            console.log(data);
-            const { tableData, orderData, userData, videoData } = data;
+            const { tableData, orderData, userData, videoData, countData } =
+                data;
             setTableData(tableData as tableType[]);
+            setCountData(countData as countType[]);
+            console.log(countData);
+
             //获取折线图数据
             const order = orderData;
             const xData = order.date;
@@ -102,8 +104,8 @@ const Home: React.FC = () => {
             </Col>
             <Col span={16}>
                 <div className="num">
-                    {countData.map((item, index) => (
-                        <Card key={index}>
+                    {countData.map((item) => (
+                        <Card key={item.name}>
                             <div
                                 className="icon-box"
                                 style={{ backgroundColor: item.color }}
@@ -120,7 +122,7 @@ const Home: React.FC = () => {
                 {echartsData.data?.orderData && (
                     <Echarts
                         chartData={echartsData.data.orderData as ChartData}
-                        style={{ height: '280px' }}
+                        style={{ height: '280px', marginTop: '30px' }}
                     ></Echarts>
                 )}
                 <div className="graph">
@@ -130,7 +132,11 @@ const Home: React.FC = () => {
                                 echartsData.data
                                     .userData as unknown as ChartData
                             }
-                            style={{ height: '240px', width: '50%' }}
+                            style={{
+                                height: '240px',
+                                width: '50%',
+                                marginLeft: '20px',
+                            }}
                         ></Echarts>
                     )}
                     {echartsData.data?.videoData && (

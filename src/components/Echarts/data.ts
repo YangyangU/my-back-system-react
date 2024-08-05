@@ -11,6 +11,9 @@ export const axisOption = {
     tooltip: {
         trigger: 'axis',
     },
+    legend: {
+        type: 'plain',
+    },
     xAxis: {
         type: 'category', // 类目轴
         data: [],

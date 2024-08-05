@@ -2,8 +2,7 @@
 import Mock from 'mockjs';
 
 // 图表数据
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const List: any[] = [];
+const List: Array<{ [key: string]: number }> = [];
 export default {
     getStatisticalData: () => {
         //Mock.Random.float 产生随机数100到8000之间 保留小数 最小0位 最大0位
@@ -26,116 +25,160 @@ export default {
                 videoData: [
                     {
                         name: '小米',
-                        value: 2999,
+                        value: Mock.Random.integer(800, 1000),
                     },
                     {
                         name: '苹果',
-                        value: 5999,
+                        value: Mock.Random.integer(1000, 1500),
                     },
                     {
                         name: 'vivo',
-                        value: 1500,
+                        value: Mock.Random.integer(200, 500),
                     },
                     {
                         name: 'oppo',
-                        value: 1999,
+                        value: Mock.Random.integer(200, 500),
                     },
                     {
                         name: '魅族',
-                        value: 2200,
+                        value: Mock.Random.integer(100, 200),
                     },
                     {
-                        name: '三星',
-                        value: 4500,
+                        name: '华为',
+                        value: Mock.Random.integer(1000, 1500),
                     },
                 ],
                 // 柱状图
                 userData: [
                     {
                         date: '周一',
-                        new: 5,
-                        active: 200,
+                        new: Mock.Random.integer(1, 500),
+                        active: Mock.Random.integer(1, 1000),
                     },
                     {
                         date: '周二',
-                        new: 10,
-                        active: 500,
+                        new: Mock.Random.integer(1, 500),
+                        active: Mock.Random.integer(500, 1000),
                     },
                     {
                         date: '周三',
-                        new: 12,
-                        active: 550,
+                        new: Mock.Random.integer(1, 500),
+                        active: Mock.Random.integer(500, 1000),
                     },
                     {
                         date: '周四',
-                        new: 60,
-                        active: 800,
+                        new: Mock.Random.integer(1, 500),
+                        active: Mock.Random.integer(500, 1000),
                     },
                     {
                         date: '周五',
-                        new: 65,
-                        active: 550,
+                        new: Mock.Random.integer(1, 750),
+                        active: Mock.Random.integer(750, 1500),
                     },
                     {
                         date: '周六',
-                        new: 53,
-                        active: 770,
+                        new: Mock.Random.integer(1, 1000),
+                        active: Mock.Random.integer(1000, 1750),
                     },
                     {
                         date: '周日',
-                        new: 33,
-                        active: 170,
+                        new: Mock.Random.integer(1, 1000),
+                        active: Mock.Random.integer(1000, 1750),
                     },
                 ],
                 // 折线图
                 orderData: {
                     date: [
-                        '20191001',
-                        '20191002',
-                        '20191003',
-                        '20191004',
-                        '20191005',
-                        '20191006',
-                        '20191007',
+                        '5月1日',
+                        '5月2日',
+                        '5月3日',
+                        '5月4日',
+                        '5月5日',
+                        '5月6日',
+                        '5月7日',
                     ],
                     data: List,
                 },
                 tableData: [
                     {
                         name: 'oppo',
-                        todayBuy: 500,
-                        monthBuy: 3500,
-                        totalBuy: 22000,
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
                     },
                     {
                         name: 'vivo',
-                        todayBuy: 300,
-                        monthBuy: 2200,
-                        totalBuy: 24000,
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
                     },
                     {
                         name: '苹果',
-                        todayBuy: 800,
-                        monthBuy: 4500,
-                        totalBuy: 65000,
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
                     },
                     {
                         name: '小米',
-                        todayBuy: 1200,
-                        monthBuy: 6500,
-                        totalBuy: 45000,
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
                     },
                     {
-                        name: '三星',
-                        todayBuy: 300,
-                        monthBuy: 2000,
-                        totalBuy: 34000,
+                        name: '荣耀',
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
                     },
                     {
                         name: '魅族',
-                        todayBuy: 350,
-                        monthBuy: 3000,
-                        totalBuy: 22000,
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
+                    },
+                    {
+                        name: '华为',
+                        todayBuy: Mock.Random.integer(1, 100),
+                        monthBuy: Mock.Random.integer(100, 1000),
+                        totalBuy: Mock.Random.integer(1000, 10000),
+                    },
+                ],
+                countData: [
+                    {
+                        name: '今日支付订单',
+                        value: Mock.Random.integer(50, 100),
+                        icon: 'CheckCircleOutlined',
+                        color: '#2ec7c9',
+                    },
+                    {
+                        name: '今日收藏订单',
+                        value: Mock.Random.integer(100, 200),
+                        icon: 'ClockCircleOutlined',
+                        color: '#ffb980',
+                    },
+                    {
+                        name: '今日未支付订单',
+                        value: Mock.Random.integer(1, 50),
+                        icon: 'CloseCircleOutlined',
+                        color: '#5ab1ef',
+                    },
+                    {
+                        name: '本月支付订单',
+                        value: Mock.Random.integer(1000, 2000),
+                        icon: 'CheckCircleOutlined',
+                        color: '#2ec7c9',
+                    },
+                    {
+                        name: '本月收藏订单',
+                        value: Mock.Random.integer(2000, 3000),
+                        icon: 'ClockCircleOutlined',
+                        color: '#ffb980',
+                    },
+                    {
+                        name: '本月未支付订单',
+                        value: Mock.Random.integer(100, 200),
+                        icon: 'CloseCircleOutlined',
+                        color: '#5ab1ef',
                     },
                 ],
             },

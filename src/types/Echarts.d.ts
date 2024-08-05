@@ -6,6 +6,12 @@ interface tableType {
     xData?: string[];
     series?: seriesType[];
 }
+interface countType {
+    name: string;
+    value: number;
+    icon: string;
+    color: string;
+}
 interface orderType {
     date?: string[];
     data?: Array<{ [key: string]: number }>;
@@ -32,6 +38,7 @@ interface dataType {
         orderData: orderType;
         userData: userType;
         videoData: videoType;
+        countData?: countType[];
     };
 }
 interface seriesType {
