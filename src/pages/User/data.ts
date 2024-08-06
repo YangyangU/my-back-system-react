@@ -1,16 +1,20 @@
+import areaData from '@/assets/json/area.json';
+import { transformData } from '@/utils/json';
+import { Rule } from 'antd/lib/form';
+
 export type FormItemType = {
     label: string;
     name: string;
     placeholder?: string;
     type: string;
-    rules: Array<RulesType>;
-    options?: Array<{ label: number | string; value: number | string }>;
+    rules: Array<Rule>;
+    options?: Array<OptionType>;
     format?: string;
 };
-interface RulesType {
-    required?: boolean;
-    message: string;
-    type?: string;
+interface OptionType {
+    label: string;
+    value: string | number;
+    children?: OptionType[];
 }
 
 export const formItems: FormItemType[] = [
@@ -26,10 +30,7 @@ export const formItems: FormItemType[] = [
         name: 'age',
         type: 'input',
         placeholder: '请输入年龄',
-        rules: [
-            { required: true, message: '请输入年龄' },
-            { type: 'number', message: '请输入数字' },
-        ],
+        rules: [{ required: true, message: '请输入年龄' }],
     },
     {
         label: '性别',
@@ -48,13 +49,14 @@ export const formItems: FormItemType[] = [
         type: 'date',
         placeholder: '请选择生日',
         rules: [{ required: true, message: '请选择生日' }],
-        format: 'yyyy-MM-dd',
+        format: 'YYYY-MM-DD',
     },
     {
         label: '地址',
         name: 'addr',
-        type: 'select',
+        type: 'cascader',
         placeholder: '请选择地址',
         rules: [{ required: true, message: '请输入地址' }],
+        options: transformData([areaData]),
     },
 ];
