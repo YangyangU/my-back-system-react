@@ -12,6 +12,7 @@ const User: React.FC = () => {
     const [userList, setUserList] = useState<userType[]>([]);
     const [modalType, setModalType] = useState<modalType>('add');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [inputValue, setInputValue] = useState<string>('');
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -150,9 +151,17 @@ const User: React.FC = () => {
                 <Button type="primary" onClick={handleClick('add')}>
                     +新增
                 </Button>
-                <Form layout="inline" onFinish={handleFinish}>
+                <Form
+                    layout="inline"
+                    onValuesChange={handleFinish}
+                    onFinish={handleFinish}
+                >
                     <Form.Item name="keyword">
-                        <Input placeholder="请输入用户名"></Input>
+                        <Input
+                            placeholder="请输入用户名"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                        />
                     </Form.Item>
                     <Form.Item>
                         <Button htmlType="submit" type="primary">
