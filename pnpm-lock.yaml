@@ -26,12 +26,18 @@ importers:
       axios:
         specifier: ^1.7.3
         version: 1.7.3
+      dayjs:
+        specifier: ^1.11.12
+        version: 1.11.12
       echarts:
         specifier: ^5.5.1
         version: 5.5.1
       mockjs:
         specifier: ^1.1.0
         version: 1.1.0
+      pinyin-match:
+        specifier: ^1.2.5
+        version: 1.2.5
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1608,6 +1614,9 @@ packages:
     resolution: {integrity: sha512-eG2dWTVw5bzqGRztnHExczNxt5VGsE6OwTeCG3fdUf9KBsZzO3R5OIIIzWR+iZA0NtZ+RDVdaoE2dK1cn6jH4g==}
     engines: {node: '>=0.10'}
     hasBin: true
+
+  pinyin-match@1.2.5:
+    resolution: {integrity: sha512-+F3bi5v95enkqSJ0nD1e2fGp8Uj3YCRBzka3DlCQ4tyurfqYmAChLR3aAO/c/Pk+xBgvEx9zI35HoyYATSb0mw==}
 
   postcss-selector-parser@6.1.1:
     resolution: {integrity: sha512-b4dlw/9V8A71rLIDsSwVmak9z2DuBUB7CA1/wSdelNEzqsjoSPeADTWNO09lpH49Diy3/JIZ2bSPB1dI3LJCHg==}
@@ -3780,6 +3789,8 @@ snapshots:
   picomatch@2.3.1: {}
 
   pidtree@0.6.0: {}
+
+  pinyin-match@1.2.5: {}
 
   postcss-selector-parser@6.1.1:
     dependencies:

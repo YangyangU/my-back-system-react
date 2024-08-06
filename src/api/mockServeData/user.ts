@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+import PinyinMatch from 'pinyin-match';
 
 // get请求从config.url获取参数，post从config.body中获取参数
 function param2Obj(url) {
@@ -40,12 +41,14 @@ export default {
      * @return {{code: number, count: number, data: *[]}}
      */
     getUserList: (config) => {
-        const { name, page = 1, limit = 20 } = param2Obj(config.url);
+        const { name, page = 1, limit = 30 } = param2Obj(config.url);
         const mockList = List.filter((user) => {
             if (
                 name &&
                 user.name.indexOf(name) === -1 &&
-                user.addr.indexOf(name) === -1
+                user.addr.indexOf(name) === -1 &&
+                !PinyinMatch.match(user.addr, name) &&
+                !PinyinMatch.match(user.name, name)
             )
                 return false;
             return true;

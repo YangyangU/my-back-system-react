@@ -2,34 +2,88 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Card, Table, Popconfirm, Modal } from 'antd';
 import type { TableColumnsType } from 'antd';
 import './index.css';
-import { getUser } from '@/api';
+import { getUser, createUser, updateUser, deleteUser } from '@/api';
 import { formItems } from './data';
 import FormItem from '@/components/FormItem';
+import dayjs from 'dayjs';
 
 const User: React.FC = () => {
     const [form] = Form.useForm();
-    const [userList, setUserList] = useState<userType[]>([] as userType[]);
+    const [userList, setUserList] = useState<userType[]>([]);
+    const [modalType, setModalType] = useState<modalType>('add');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
     const handleClick = (type: string, rowData?: userType) => () => {
         switch (type) {
             case 'add':
-                console.log('点击了新增按钮', rowData);
                 showModal();
+                setModalType('add');
                 break;
             case 'edit':
-                console.log('点击了编辑按钮', rowData);
                 showModal();
+                setModalType('edit');
+                form.setFieldsValue(transform(rowData as userType));
                 break;
             case 'delete':
-                console.log('点击了删除按钮', rowData);
+                deleteUser(rowData as userType).then(() => {
+                    getTableData();
+                });
                 break;
             default:
                 break;
         }
     };
     const handleFinish = (e: { keyword: string }) => {
-        getUser(e.keyword).then(({ list }) => {
+        getTableData(e.keyword);
+    };
+
+    const transform = (data: userType) => {
+        const cloneData = JSON.parse(JSON.stringify(data));
+        cloneData.birth = dayjs(cloneData.birth);
+        cloneData.addr = (cloneData.addr as string).split(' ');
+        return cloneData;
+    };
+
+    useEffect(() => {
+        getTableData();
+    }, []);
+
+    const getTableData = (param?: string) => {
+        getUser(param).then(({ list }) => {
             setUserList(list);
         });
+    };
+
+    const handleOk = () => {
+        //表单校验
+        form.validateFields()
+            .then((values) => {
+                handleCancel();
+                if (modalType === 'add') {
+                    values.birth = dayjs(values.birth).format('YYYY-MM-DD');
+                    values.addr = values.addr.join(' ');
+                    createUser(values).then(() => {
+                        getTableData();
+                    });
+                } else {
+                    values.birth = dayjs(values.birth).format('YYYY-MM-DD');
+                    values.addr = values.addr.join(' ');
+                    updateUser(values).then(() => {
+                        getTableData();
+                    });
+                }
+            })
+            .catch(() => {
+                console.log('校验失败');
+            });
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        form.resetFields();
     };
 
     const columns: TableColumnsType = [
@@ -67,7 +121,6 @@ const User: React.FC = () => {
                 return (
                     <div>
                         <Button
-                            type="primary"
                             style={{ marginRight: '5px' }}
                             onClick={handleClick('edit', rowData)}
                         >
@@ -91,26 +144,6 @@ const User: React.FC = () => {
         },
     ];
 
-    useEffect(() => {
-        getUser('').then(({ list }) => {
-            setUserList(list);
-        });
-    }, []);
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
     return (
         <div className="user">
             <div className="flex-box">
@@ -129,10 +162,12 @@ const User: React.FC = () => {
                 </Form>
             </div>
             <Modal
-                title="新增用户"
+                title={modalType === 'add' ? '新增用户' : '编辑用户'}
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
+                okText="确定"
+                cancelText="取消"
             >
                 <Form
                     labelCol={{ span: 6 }}
@@ -140,6 +175,7 @@ const User: React.FC = () => {
                     labelAlign="left"
                     form={form}
                 >
+                    <Form.Item name="id" hidden></Form.Item>
                     {formItems.map((item) => (
                         <FormItem key={item.name} item={item} />
                     ))}

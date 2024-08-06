@@ -28,9 +28,17 @@ export const formItems: FormItemType[] = [
     {
         label: '年龄',
         name: 'age',
-        type: 'input',
+        type: 'number',
         placeholder: '请输入年龄',
-        rules: [{ required: true, message: '请输入年龄' }],
+        rules: [
+            { required: true, message: '请输入年龄' },
+            {
+                type: 'number',
+                min: 1,
+                max: 100,
+                message: '请输入1-100岁之间的数字',
+            },
+        ],
     },
     {
         label: '性别',

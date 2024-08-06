@@ -25,14 +25,11 @@ interface userType {
     new?: number;
     active?: number;
     series?: seriesType[];
-    id?: number;
+    id?: string;
     name?: string;
     age?: number;
-    address?: string;
-    phone?: string;
-    email?: string;
-    createTime?: string;
-    updateTime?: string;
+    addr?: string | Array<string>;
+    birth?: string | Date;
 }
 type videoType = {
     name?: string;
@@ -68,8 +65,8 @@ interface DataProps {
     isAxisChart?: boolean;
 }
 
-interface XAXisOption {
-    type: string;
-    boundaryGap: boolean;
-    data: string[];
+type modalType = 'edit' | 'add';
+
+declare module 'pinyin' {
+    function match(input: string, keyword: string): boolean | number[];
 }
