@@ -6,7 +6,9 @@ import { useSelector } from 'react-redux';
 
 const View: React.FC = () => {
     const tagList = useSelector((state: RootState) => state.tab.tagList);
-    const handleClose = (e: React.MouseEvent<HTMLElement>) => {};
+    const handleClose = (e: React.MouseEvent<HTMLElement>) => {
+        console.log(e);
+    };
     return (
         <Space className="common-tag" size={[0, 8]}>
             {tagList.map((item: TagType) => {
