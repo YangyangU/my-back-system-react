@@ -3,6 +3,9 @@ import React from 'react';
 import MenuConfig from '@/api/menu';
 import { icon2Element } from '@/utils/icon';
 import { To, useNavigate } from 'react-router-dom';
+import type { AppDispatch } from '@/store';
+import { setTagList } from '@/store/reducers/tabs';
+import { useDispatch } from 'react-redux';
 
 type MenuItemType = {
     key: string;
@@ -29,9 +32,20 @@ const items: MenuItemType[] = MenuConfig.map((item) => {
 });
 
 const View: React.FC<{ collapsed: boolean }> = ({ collapsed }) => {
+    const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
-    const selectMenu = (e: { key: To }) => {
+    const selectMenu = (e: { key: To; keyPath: To[] }) => {
         navigate(e.key);
+        MenuConfig.map((item) => {
+            if (e.keyPath.includes(item.path))
+                dispatch(
+                    setTagList({
+                        path: item.path,
+                        name: item.name,
+                        label: item.label,
+                    }),
+                );
+        });
     };
 
     return (
