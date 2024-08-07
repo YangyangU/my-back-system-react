@@ -72,3 +72,12 @@ type TagType = {
     name: string;
     label: string;
 };
+
+type MenuType = {
+    path: string;
+    name?: string;
+    label: string;
+    icon: string;
+    url?: string;
+    children?: Array<MenuType>;
+};

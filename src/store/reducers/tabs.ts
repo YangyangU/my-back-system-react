@@ -1,38 +1,55 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface TabsState {
+    isCollapse: boolean;
+    tagList: TagType[];
+    currentTab: TagType;
+}
+
+const initialState: TabsState = {
+    isCollapse: false,
+    tagList: [
+        {
+            path: '/home',
+            name: 'home',
+            label: '首页',
+        },
+    ],
+    currentTab: {
+        path: '',
+        name: '',
+        label: '',
+    },
+};
 
 const tabsSlice = createSlice({
     name: 'tabs',
-    initialState: {
-        isCollapse: false,
-        tagList: [
-            {
-                path: '/',
-                name: 'home',
-                label: '首页',
-            },
-        ],
-        currentTab: '/', // 当前激活的tab
-    },
+    initialState,
     reducers: {
         collapseMenu: (state) => {
             state.isCollapse = !state.isCollapse;
         },
-        setTagList: (state, { payload }) => {
-            if (payload.name !== 'home') {
-                if (
-                    state.tagList.findIndex(
-                        (item) => item.name === payload.name,
-                    ) === -1
-                )
-                    state.tagList = [...state.tagList, payload];
-            }
+        setTagList: (state, { payload }: PayloadAction<TagType>) => {
+            if (
+                state.tagList.findIndex(
+                    (item) => item.name === payload.name,
+                ) === -1
+            )
+                state.tagList.push(payload);
         },
-        setCurrentTab: (state, { payload }) => {
+        closeTab: (state, { payload }: PayloadAction<TagType>) => {
+            if (state.tagList.length === 1) return;
+            state.tagList = state.tagList.filter(
+                (item) => item.name !== payload.name,
+            );
+        },
+        setCurrentTab: (state, { payload }: PayloadAction<TagType>) => {
             state.currentTab = payload;
         },
     },
 });
 
-export const { collapseMenu, setTagList, setCurrentTab } = tabsSlice.actions;
+export const { collapseMenu, setTagList, closeTab, setCurrentTab } =
+    tabsSlice.actions;
 
 export default tabsSlice.reducer;
