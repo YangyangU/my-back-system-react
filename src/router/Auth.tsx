@@ -1,17 +1,19 @@
-import { PropsWithChildren, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { isLogin } from '@/utils/auth';
-import { getCurrentRouterMap, routes } from './index';
+import { PropsWithChildren } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const Auth = (props: PropsWithChildren) => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    useEffect(() => {
-        const router = getCurrentRouterMap(routes, location.pathname);
-        if (!isLogin && router.auth) {
-            navigate('/login');
-        }
-    }, [location.pathname]);
+    const { meta } = props;
+
+    if (meta && meta.title) {
+        document.title = meta.title;
+    }
+
+    const token = localStorage.getItem('my-back-token');
+
+    if (meta && meta.needLogin && !token) {
+        return <Navigate to="/login" replace></Navigate>;
+    }
+
     return props.children;
 };
 

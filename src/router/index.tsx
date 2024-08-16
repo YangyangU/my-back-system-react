@@ -1,5 +1,4 @@
-import { RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
-import { ReactNode } from 'react';
+import { RouteObject, createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
@@ -7,48 +6,73 @@ import Mall from '@/pages/Mall';
 import User from '@/pages/User';
 import NotFound from '@/pages/404';
 import Login from '@/pages/Login';
+import Car from '@/pages/Car';
 
-interface Route {
-    path?: string;
-    name?: string;
-    element?: ReactNode;
-    children?: Route[];
+type RouterWithTabAuthObject = Omit<RouteObject, 'children'> & {
+    label?: string;
     auth?: boolean;
-    index?: boolean;
-}
+    meta?: {
+        title: string;
+        needLogin: boolean;
+    };
+    children?: RouterWithTabAuthObject[];
+};
 
-export const routes: Route[] = [
+export const routes: RouterWithTabAuthObject[] = [
     {
         path: '/',
         element: <Layout />,
-        auth: true,
         children: [
             {
-                index: true,
-                element: <Navigate to="home" />,
-            },
-            {
                 path: 'home',
-                auth: true,
+                index: true,
+                meta: {
+                    title: '首页',
+                    needLogin: true,
+                },
                 element: <Home />,
             },
             {
                 path: 'mall',
+                meta: {
+                    title: '商品列表',
+                    needLogin: true,
+                },
                 element: <Mall />,
             },
             {
                 path: 'user',
+                meta: {
+                    title: '用户列表',
+                    needLogin: true,
+                },
                 element: <User />,
+            },
+            {
+                path: 'car',
+                meta: {
+                    title: '3D看车',
+                    needLogin: true,
+                },
+                element: <Car />,
             },
             {
                 path: 'other',
                 children: [
                     {
                         path: 'pageOne',
+                        meta: {
+                            title: '用户列表',
+                            needLogin: true,
+                        },
                         element: <div>other1</div>,
                     },
                     {
                         path: 'pageTwo',
+                        meta: {
+                            title: '用户列表',
+                            needLogin: true,
+                        },
                         element: <div>other2</div>,
                     },
                 ],
@@ -64,19 +88,6 @@ export const routes: Route[] = [
         element: <NotFound />,
     },
 ];
-
-type Router = Route & { child?: Router[] };
-
-export const getCurrentRouterMap = (routers: Router[], path: string): Route => {
-    for (const router of routers) {
-        if (router.path == path) return router;
-        if (router.child) {
-            const childRouter = getCurrentRouterMap(router.child, path);
-            if (childRouter) return childRouter;
-        }
-    }
-    return routes[routes.length - 1];
-};
 
 const router = createBrowserRouter(routes as RouteObject[]);
 
