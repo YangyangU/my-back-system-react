@@ -1,4 +1,4 @@
-import { RouteObject, createBrowserRouter } from 'react-router-dom';
+import { RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
 
 import Layout from '@/components/Layout';
 import Home from '@/pages/Home';
@@ -23,6 +23,10 @@ export const routes: RouterWithTabAuthObject[] = [
         path: '/',
         element: <Layout />,
         children: [
+            {
+                index: true,
+                element: <Navigate to={'/home'}></Navigate>,
+            },
             {
                 path: 'home',
                 index: true,
