@@ -8,7 +8,7 @@ import NotFound from '@/pages/404';
 import Login from '@/pages/Login';
 import Car from '@/pages/Car';
 
-type RouterWithTabAuthObject = Omit<RouteObject, 'children'> & {
+export type RouterWithTabAuthObject = Omit<RouteObject, 'children'> & {
     label?: string;
     auth?: boolean;
     meta?: {
