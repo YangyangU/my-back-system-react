@@ -81,7 +81,7 @@ const Home: React.FC = () => {
                 },
             });
         });
-    }, []);
+    }, [latitude, longitude]);
     return (
         <Row className="home">
             <Col span={8}>
